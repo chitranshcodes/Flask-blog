@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About-FlaskBlog</title>
+{% extends "layout.html"%}
+{%block style%}
     <style>
         body{
-            background-color: blanchedalmond;
+            background-color: rgb(236, 207, 164);
         }
     </style>
-</head>
-<body>
-    This is a FlaskBlog application which is a tech community where users can post their opinions and advices to new commers.
-</body>
-</html>
+{%endblock%}
+{% block content %}
+<p1>
+This is a website where newcomers read and post their knowledge about tech
+</p1>
+{%endblock%}
