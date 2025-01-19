@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if title %}
-    <title>Flask-Blog</title>
-    {% else %}
-    <title>Flask-Blog{{ title }}</title>
-    {% endif %}
+{%extends "layout.html"%}
+{%block style%}
+
     <style>
         body{
             background-color: skyblue;
@@ -15,13 +8,13 @@
         pc{
             font-size: 20px;
         }
-        div{
+        .posts{
             background-color: antiquewhite;
             text-align: center;
         }
     </style>
-</head>
-<body>
+    {%endblock style%}
+{% block content %}
     <h1>
         This side Chitransh is the creator of this project
     </h1>
@@ -32,5 +25,4 @@
     <p>By {{ post.author }} dated {{post.Date_Posted}}</p>
     {% endfor %}
     </div>
-</body>
-</html>
+{%endblock%}
