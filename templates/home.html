@@ -7,8 +7,13 @@
     <style>
         body{
             background-color: skyblue;
+        }
+        pc{
+            font-size: 20px;
+        }
+        div{
+            background-color: antiquewhite;
             text-align: center;
-            padding-top: 330px;
         }
     </style>
 </head>
@@ -16,5 +21,12 @@
     <h1>
         This side Chitransh is the creator of this project
     </h1>
+    <div class="posts">
+    {% for post in posts %}
+    <h2> {{ post.title }} </h2>
+    <pc>{{ post.content }}</pc>
+    <p>By {{ post.author }} dated {{post.Date_Posted}}</p>
+    {% endfor %}
+    </div>
 </body>
 </html>
