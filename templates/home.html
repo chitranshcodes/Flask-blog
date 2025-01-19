@@ -13,16 +13,20 @@
             text-align: center;
         }
     </style>
-    {%endblock style%}
+    {%endblock%}
 {% block content %}
-    <h1>
-        This side Chitransh is the creator of this project
-    </h1>
     <div class="posts">
     {% for post in posts %}
-    <h2> {{ post.title }} </h2>
-    <pc>{{ post.content }}</pc>
-    <p>By {{ post.author }} dated {{post.Date_Posted}}</p>
-    {% endfor %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }} on {{post.Date_Posted}}</a>
+            <small class="text-muted">{{ post.date_posted }}</small>
+          </div>
+          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+      </article>
+       {% endfor %}
     </div>
 {%endblock%}
