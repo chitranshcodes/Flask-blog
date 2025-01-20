@@ -14,10 +14,10 @@ posts=[
 ]
 @app.route('/')
 def welcome():
-    return render_template('welcome.html', title="Welcome")
+    return render_template('welcome.html')
 @app.route('/home')
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts, title='Home')
 
 @app.route('/about')
 def about():
