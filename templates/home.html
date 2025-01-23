@@ -3,13 +3,12 @@
 
     <style>
         body{
-            background-color: skyblue;
+            background-color: rgb(93, 244, 43);
         }
         pc{
             font-size: 20px;
         }
         .posts{
-            background-color: antiquewhite;
             text-align: center;
         }
     </style>
@@ -21,7 +20,7 @@
         <div class="media-body">
           <div class="article-metadata">
             <a class="mr-2" href="#">{{ post.author }} on {{post.Date_Posted}}</a>
-            <small class="text-muted">{{ post.date_posted }}</small>
+            <small class="text-muted">{{ post.Date_posted }}</small>
           </div>
           <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
           <p class="article-content">{{ post.content }}</p>
