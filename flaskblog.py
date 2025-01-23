@@ -38,6 +38,12 @@ posts=[
     "author":"Chitransh Gaur",
     "Date_Posted":"19/01/25",
     "content":"aise hi likh rha hu ainwaiyyn"
+},
+{
+    "title":"Second Post",
+    "author":"Chitransh Gaur",
+    "Date_Posted":"23/01/25",
+    "content":"M hu dunia ka PAPA"
 }
 
 ]
