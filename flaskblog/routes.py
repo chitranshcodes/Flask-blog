@@ -64,3 +64,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route("/Profile")
+def Profile():
+    return render_template("Profile.html",title="Your Profile")
