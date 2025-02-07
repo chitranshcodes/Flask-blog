@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     username=db.Column(db.String(20), nullable=False, unique=True)
     email=db.Column(db.String(100), nullable=False, unique=True)
     password= db.Column(db.String(60), nullable=False)
-    img=db.Column(db.String(20), nullable=False, default='default.jpg')
+    img=db.Column(db.String(20), nullable=False, default='static/default.jpg')
     posts=db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
