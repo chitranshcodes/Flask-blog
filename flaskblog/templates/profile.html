@@ -21,7 +21,7 @@
     </div>
     <form method="POST" action="{{ url_for('register') }}">
         {{ form.hidden_tag() }}
-        <legend class="border-bottom mb-4">Update!</legend>
+        <legend class="border-bottom mb-4">Update Account Credentials</legend>
         <div class="form-group">
             {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
