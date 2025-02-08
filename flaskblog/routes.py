@@ -66,9 +66,18 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/Profile")
+@app.route("/Profile", methods=['GET', 'POST'])
 @login_required
 def Profile():
     form=UpdationForm()
-    profile_pic= url_for('static', filename=current_user.img)
-    return render_template("Profile.html",title="Your Profile", profile_pic=profile_pic, form=form)
+    profile_pic = url_for('static', filename=current_user.img)
+    if form.validate_on_submit():
+        current_user.username=form.username.data
+        current_user.email=form.email.data
+        db.session.commit()
+        flash('Account details updated successfully!', 'success')
+        return redirect(url_for('Profile'))
+    elif request.method=='GET':
+        form.username.data=current_user.username
+        form.email.data=current_user.email
+    return render_template("Profile.html",title="Your Profile", profile_img=profile_pic, form=form)
