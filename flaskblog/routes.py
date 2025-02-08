@@ -80,4 +80,4 @@ def Profile():
     elif request.method=='GET':
         form.username.data=current_user.username
         form.email.data=current_user.email
-    return render_template("Profile.html",title="Your Profile", profile_img=profile_pic, form=form)
+    return render_template("Profile.html",title="Your Profile", profile_pic=profile_pic, form=form)
