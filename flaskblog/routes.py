@@ -14,7 +14,7 @@ def welcome():
 @app.route('/home')
 def home():
     page=request.args.get('page',1, type=int)
-    posts=Post.query.paginate(per_page=4, page=page)
+    posts=Post.query.order_by(Post.Date_Posted.desc()).paginate(per_page=4, page=page)
     return render_template('home.html', posts=posts, title='Home')
 
 @app.route('/about')
