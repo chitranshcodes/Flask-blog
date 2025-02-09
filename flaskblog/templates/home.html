@@ -18,7 +18,7 @@
     {%endblock%}
 {% block content %}
     <div class="posts">
-    {% for post in posts %}
+    {% for post in posts.items %}
     <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ url_for('static', filename='pfps/'+ post.author.img) }}">
         <div class="media-body">
@@ -34,5 +34,13 @@
         </div>
       </article>
        {% endfor %}
+       {% for page_num in posts.iter_pages() %}
+       {%if page_num %}
+       <a class="btn btn-outline-info" href="{{url_for('home',page= page_num )}}">{{ page_num }}</a>
+       {%else%}
+       ...
+       {%endif%}
+
+       {%endfor%}
     </div>
 {%endblock%}

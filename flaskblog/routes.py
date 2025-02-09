@@ -13,7 +13,8 @@ def welcome():
     return render_template('welcome.html')
 @app.route('/home')
 def home():
-    posts=Post.query.all()
+    page=request.args.get('page',1, type=int)
+    posts=Post.query.paginate(per_page=3, page=page)
     return render_template('home.html', posts=posts, title='Home')
 
 @app.route('/about')
