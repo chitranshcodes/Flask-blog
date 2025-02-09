@@ -73,7 +73,7 @@ def logout():
 @login_required
 def Profile():
     form=UpdationForm()
-    profile_pic = url_for('static', filename=current_user.img)
+    profile_pic = url_for('static', filename='pfps/'+current_user.img)
     if form.validate_on_submit():
         if form.picture.data:
             filename=save_picture(form.picture.data)
@@ -93,7 +93,7 @@ def save_picture(picture_file):
     hex_name=secrets.token_hex(8)
     _, file_ext=os.path.splitext(picture_file.filename)
     new_name=hex_name+file_ext
-    new_path=os.path.join(app.root_path,'static', new_name)
+    new_path=os.path.join(app.root_path,'static/pfps', new_name)
     op_size=(150,150)
     i=Image.open(picture_file)
     i.thumbnail(op_size)
