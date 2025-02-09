@@ -104,4 +104,7 @@ def save_picture(picture_file):
 @login_required
 def new_post():
     form=NewPostForm()
+    if form.validate_on_submit():
+        flash('HURRAYYYY...Posted!!!', 'success')
+        return redirect(url_for('home'))
     return render_template('new_post.html', title='New Post', form=form)

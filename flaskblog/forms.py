@@ -49,3 +49,4 @@ class UpdationForm(FlaskForm):
 class NewPostForm(FlaskForm):
     title= StringField('Title-of-the-Post', validators=[DataRequired()])
     content= TextAreaField('Content', validators=[DataRequired()])
+    submit=SubmitField('Post')
