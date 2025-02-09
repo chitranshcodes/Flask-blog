@@ -11,6 +11,9 @@
         .posts{
             text-align: center;
         }
+        span{
+            padding: 20px;
+        }
     </style>
     {%endblock%}
 {% block content %}
@@ -25,6 +28,9 @@
           </div>
           <h2><a class="article-title" href="{{ url_for('post',post_id=post.id) }}">{{ post.title }}</a></h2>
           <p class="article-content">{{ post.content }}</p>
+          {%if post.author==current_user %}
+          <span class="btn btn-info"><a class="text-white m-1" href="{{url_for('post_update', post_id=post.id)}}" >Edit</a></span><span class="m-1 btn btn-danger"><a class="text-white" href="{{url_for('post_delete', post_id=post.id)}}" >Delete Post</a>    </span>
+          {%endif%}
         </div>
       </article>
        {% endfor %}
