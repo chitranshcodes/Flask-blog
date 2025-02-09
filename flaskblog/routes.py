@@ -1,5 +1,6 @@
 import os
 import secrets
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog.models import User, Post
 from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm
@@ -93,5 +94,8 @@ def save_picture(picture_file):
     _, file_ext=os.path.splitext(picture_file.filename)
     new_name=hex_name+file_ext
     new_path=os.path.join(app.root_path,'static', new_name)
-    picture_file.save(new_path)
+    op_size=(150,150)
+    i=Image.open(picture_file)
+    i.thumbnail(op_size)
+    i.save(new_path)
     return new_name
