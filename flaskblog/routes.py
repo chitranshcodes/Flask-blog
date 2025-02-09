@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog.models import User, Post
 from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm
@@ -72,6 +74,9 @@ def Profile():
     form=UpdationForm()
     profile_pic = url_for('static', filename=current_user.img)
     if form.validate_on_submit():
+        if form.picture.data:
+            filename=save_picture(form.picture.data)
+            current_user.img=filename
         current_user.username=form.username.data
         current_user.email=form.email.data
         db.session.commit()
@@ -81,3 +86,12 @@ def Profile():
         form.username.data=current_user.username
         form.email.data=current_user.email
     return render_template("Profile.html",title="Your Profile", profile_pic=profile_pic, form=form)
+
+
+def save_picture(picture_file):
+    hex_name=secrets.token_hex(8)
+    _, file_ext=os.path.splitext(picture_file.filename)
+    new_name=hex_name+file_ext
+    new_path=os.path.join(app.root_path,'static', new_name)
+    picture_file.save(new_path)
+    return new_name
