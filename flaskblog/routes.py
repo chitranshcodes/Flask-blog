@@ -96,6 +96,6 @@ def save_picture(picture_file):
     new_path=os.path.join(app.root_path,'static/pfps', new_name)
     op_size=(150,150)
     i=Image.open(picture_file)
-    i.thumbnail(op_size)
+    i=i.resize(op_size)
     i.save(new_path)
     return new_name
