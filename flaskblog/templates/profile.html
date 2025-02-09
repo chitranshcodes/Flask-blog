@@ -19,7 +19,7 @@
         <p class="text-secondary">{{ current_user.email }}</p>
       </div>
     </div>
-    <form method="POST" action="{{ url_for('register') }}">
+    <form method="POST" action="{{ url_for('Profile') }}">
         {{ form.hidden_tag() }}
         <legend class="border-bottom mb-4">Update Account Credentials</legend>
         <div class="form-group">
