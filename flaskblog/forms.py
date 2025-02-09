@@ -45,3 +45,4 @@ class UpdationForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('email already registered')
+            

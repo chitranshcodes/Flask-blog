@@ -99,3 +99,8 @@ def save_picture(picture_file):
     i=i.resize(op_size)
     i.save(new_path)
     return new_name
+
+@app.route("/Profile", methods=['GET', 'POST'])
+@login_required
+def new_post():
+    return render_template('new_post.html', title='New Post')
