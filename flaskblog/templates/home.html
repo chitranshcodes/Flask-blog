@@ -36,7 +36,11 @@
        {% endfor %}
        {% for page_num in posts.iter_pages() %}
        {%if page_num %}
+       {%if page_num == posts.page %}
+       <a class="btn btn-info" href="{{url_for('home',page= page_num )}}">{{ page_num }}</a>
+       {%else%}
        <a class="btn btn-outline-info" href="{{url_for('home',page= page_num )}}">{{ page_num }}</a>
+       {%endif%}
        {%else%}
        ...
        {%endif%}
