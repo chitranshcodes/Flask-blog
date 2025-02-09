@@ -7,26 +7,13 @@ from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm, NewPostFo
 from flaskblog import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
-posts=[
-{
-    "title":"First Post",
-    "author":"Chitransh Gaur",
-    "Date_Posted":"19/01/25",
-    "content":"aise hi likh rha hu ainwaiyyn"
-},
-{
-    "title":"Second Post",
-    "author":"Chitransh Gaur",
-    "Date_Posted":"23/01/25",
-    "content":"M hu dunia ka PAPA"
-}
 
-]
 @app.route('/')
 def welcome():
     return render_template('welcome.html')
 @app.route('/home')
 def home():
+    posts=Post.query.all()
     return render_template('home.html', posts=posts, title='Home')
 
 @app.route('/about')
@@ -105,6 +92,9 @@ def save_picture(picture_file):
 def new_post():
     form=NewPostForm()
     if form.validate_on_submit():
+        post= Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash('HURRAYYYY...Posted!!!', 'success')
         return redirect(url_for('home'))
     return render_template('new_post.html', title='New Post', form=form)
