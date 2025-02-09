@@ -98,3 +98,9 @@ def new_post():
         flash('HURRAYYYY...Posted!!!', 'success')
         return redirect(url_for('home'))
     return render_template('new_post.html', title='New Post', form=form)
+
+@app.route("/post/<int:post_id>")
+@login_required
+def post(post_id):
+    post=Post.query.get_or_404(post_id)
+    return render_template('post.html', post=post)

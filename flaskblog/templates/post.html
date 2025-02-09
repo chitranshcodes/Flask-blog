@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-{{ post.title }}</title>
+    <style>
+        body{
+            background-color: burlywood;
+        }
+        div{
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="posts">
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='pfps/'+ post.author.img) }}">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ post.author.username }} on {{post.Date_Posted.date()}} at {{ post.Date_Posted.strftime("%H:%M")}}</a>
+                <small class="text-muted">{{ post.Date_posted }}</small>
+              </div>
+              <h2><a class="article-title" href="{{url_for('home')}}">{{ post.title }}</a></h2>
+              <p class="article-content">{{ post.content }}</p>
+            </div>
+          </article>
+        </div>
+</body>
+</html>
