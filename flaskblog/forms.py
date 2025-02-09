@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, PasswordField, SubmitField
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskblog.models import User
 from flask_login import current_user
@@ -45,4 +45,7 @@ class UpdationForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('email already registered')
-            
+    
+class NewPostForm(FlaskForm):
+    title= StringField('Title-of-the-Post', validators=[DataRequired()])
+    content= TextAreaField('Content', validators=[DataRequired()])

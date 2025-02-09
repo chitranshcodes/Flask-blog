@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog.models import User, Post
-from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm, NewPostForm
 from flaskblog import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -100,7 +100,8 @@ def save_picture(picture_file):
     i.save(new_path)
     return new_name
 
-@app.route("/Profile", methods=['GET', 'POST'])
+@app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
-    return render_template('new_post.html', title='New Post')
+    form=NewPostForm()
+    return render_template('new_post.html', title='New Post', form=form)
