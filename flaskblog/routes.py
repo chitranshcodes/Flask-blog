@@ -4,7 +4,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog.models import User, Post
 from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm, NewPostForm, UpdatePostForm, ResetPasswordForm, ResetRequestForm
-from flaskblog import app, db,bcrypt
+from flaskblog import app, db, bcrypt, mail
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
@@ -139,11 +139,36 @@ def post_delete(post_id):
 
 @app.route('/reset_request', methods=['GET','POST'])
 def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form=ResetRequestForm()
+    if form.validate_on_submit():
+        user=User.query.filter_by(email=form.email.data).first()
+        send_email(user)
+        flash('a passwor reset mail has been sent to your email id. Meet you there!', 'info')
+        return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
 
 @app.route('/reset_password', methods=['GET','POST'])
 def reset_password():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form= ResetPasswordForm()
+    if form.validate_on_submit():
+        user=User.verify_reset_token(token)
+        if not user:
+            flash('Token is invalid or expired', 'warning')
+            return redirect(url_for('reset_request'))
     form= ResetPasswordForm()
     return render_template('reset_password.html', title='Reset Password', form=form)
+
+
+def send_email(user):
+    token = user.get_reset_token()
+    msg= Message('Password reset email', sender='flaskblog@demo.com', recipients=[user.email])
+    msg.body= f"""Follow the given link ton reset your password
+{url_for('reset_password', token=token, _external=True)}
+
+if you did not request it, ignore and no changes will be made
+"""
