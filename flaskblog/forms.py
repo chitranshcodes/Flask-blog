@@ -57,7 +57,7 @@ class UpdatePostForm(FlaskForm):
     submit=SubmitField('Update Post')
 
 class ResetRequestForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Length(min=5,max=15), Email(message='Invalid Email Address')])
+    email = StringField("Email", validators=[DataRequired(), Email(message='Invalid Email Address')])
     submit=SubmitField('Request Reset Password Mail')
     
     def validate_email(self, email):

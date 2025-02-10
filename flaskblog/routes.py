@@ -155,20 +155,26 @@ def reset_password():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form= ResetPasswordForm()
+    user=User.verify_reset_token(token)
+    if not user:
+        flash('Token is invalid or expired', 'warning')
+        return redirect(url_for('reset_request'))
     if form.validate_on_submit():
-        user=User.verify_reset_token(token)
-        if not user:
-            flash('Token is invalid or expired', 'warning')
-            return redirect(url_for('reset_request'))
+        hashed_pw=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password=hashed_pw
+        db.session.commit()
+        flash('Your password has been changed!, Please login with the new password', 'success')
+        return redirect(url_for('login'))
     form= ResetPasswordForm()
     return render_template('reset_password.html', title='Reset Password', form=form)
 
 
 def send_email(user):
     token = user.get_reset_token()
-    msg= Message('Password reset email', sender='flaskblog@demo.com', recipients=[user.email])
+    msg= Message('Password reset email', sender='noreplydemo@gmail.com', recipients=[user.email])
     msg.body= f"""Follow the given link ton reset your password
 {url_for('reset_password', token=token, _external=True)}
 
 if you did not request it, ignore and no changes will be made
 """
+    mail.send(msg)

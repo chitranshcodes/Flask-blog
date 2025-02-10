@@ -1,7 +1,7 @@
 from datetime import datetime
 from flaskblog import db, LM, app
 from flask_login import UserMixin
-from itsdangerous import Serializer
+from itsdangerous import URLSafeTimedSerializer as Serializer
 
 @LM.user_loader
 def load_user(user_id):
@@ -15,15 +15,15 @@ class User(db.Model, UserMixin):
     img=db.Column(db.String(20), nullable=False, default='default.jpg')
     posts=db.relationship('Post', backref='author', lazy=True)
 
-    def get_reset_token(self, expire_time=900):
-        s=Serializer(app.config['SECRET_KEY'], expire_time)
-        token= s.dumps({'user_id':self.id}).decode('utf-8')
+    def get_reset_token(self, ):
+        s=Serializer(app.config['SECRET_KEY'])
+        token= s.dumps({'user_id': int(self.id)})
         return token
     @staticmethod
-    def verify_reset_token(token):
+    def verify_reset_token(token, exp_T=900):
         s=Serializer(app.config['SECRET_KEY'])
         try:
-            user_id=s.loads(token)['user_id']
+            user_id=s.loads(token, max_age=exp_T)['user_id']
             # extracts user_id component from user_data taken from s.loads(token) and assigns it to variable user_id
         except:
             return None
