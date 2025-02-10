@@ -3,10 +3,10 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog.models import User, Post
-from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm, NewPostForm, UpdatePostForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdationForm, NewPostForm, UpdatePostForm, ResetPasswordForm, ResetRequestForm
 from flaskblog import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-
+from flask_mail import Message
 
 @app.route('/')
 def welcome():
@@ -136,3 +136,14 @@ def post_delete(post_id):
     db.session.commit()
     flash('Post Deleted!', 'danger')
     return redirect(url_for('home'))
+
+@app.route('/reset_request', methods=['GET','POST'])
+def reset_request():
+    form=ResetRequestForm()
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+
+@app.route('/reset_password', methods=['GET','POST'])
+def reset_password():
+    form= ResetPasswordForm()
+    return render_template('reset_password.html', title='Reset Password', form=form)
